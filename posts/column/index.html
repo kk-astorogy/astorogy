@@ -1,1 +1,62 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>コラム一覧｜Stella Note</title>
+  <meta name="description" content="Stella Note のコラム記事一覧ページです。" />
+  <link rel="stylesheet" href="../../style.css" />
+</head>
 
+<body>
+
+  <header>
+    <div class="logo">Stella Note</div>
+    <nav>
+      <a href="../../index.html">トップ</a>
+      <a href="index.html">コラム</a>
+      <a href="../../index.html#zodiac">12星座</a>
+    </nav>
+  </header>
+
+  <main class="container">
+
+    <h1>コラム一覧</h1>
+    <p class="muted">
+      Stella Note のコラム記事をまとめています。月星座・トランジット・水星逆行など、日常に役立つ占星術の読み物をお楽しみください。
+    </p>
+
+    <section class="post-list-section">
+      <ul class="post-list">
+
+        <!-- ▼ ここに記事を追加していく（手動更新） -->
+        <li class="post-item">
+          <a href="20260402-moon_sign.html">
+            <div class="post-title">太陽星座だけじゃない？「月星座」が教えてくれる素の自分</div>
+            <div class="post-meta">2026-04-02 ｜ 基礎知識 / 月星座</div>
+          </a>
+        </li>
+
+        <li class="post-item">
+          <a href="../2026-03-20-mercury-retro.html">
+            <div class="post-title">水星逆行の「せい」にしすぎないための3つの視点</div>
+            <div class="post-meta">2026-03-20 ｜ コラム / 水星逆行</div>
+          </a>
+        </li>
+
+        <!-- ▼ 今後追加する場合はこの下に li を追加 -->
+      </ul>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>© <span id="year"></span> Stella Note</p>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+
+</body>
+</html>
