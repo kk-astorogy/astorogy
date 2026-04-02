@@ -1,41 +1,96 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="utf-8">
-<title>あなたのＨＰタイトル</title>
-<meta name="keywords" content="ページのキーワードA,B,C">
-<meta name="description" content="ページの説明">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Stella Note｜西洋占星術コラム</title>
+  <meta name="description" content="西洋占星術のコラムや12星座の読み物を掲載するサイトです。" />
+  <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
-<div id="outer">
-<header>
-<div class="header-inner">
-<h1>あなたのＨＰタイトル</h1>
-<p>あなたのＨＰの説明文</p>
-</div>
-</header>
-<div id="content">
-<div class="inner">
-<h2>記事ページ見出し・大</h2>
-<p>文章あれこれ</p>
-<h3>記事ページ見出し・中</h3>
-<p>文章あれこれ</p>
-<h4>記事ページ見出し・小</h4>
-<p>文章あれこれ</p>
-</div>
-<aside>
-<div class="left-title">サイドバータイトル</div>
-<div class="link">
-<ul>
-<li>記事ページへのリンク</li>
-<li>記事ページへのリンク</li>
-</ul>
-</div>
-</aside>
-</div>
-<footer>© 2010 あなたのホームページ</footer>
-</div>
+  <header>
+    <div class="logo">Stella Note</div>
+    <nav>
+      <a href="#latest">コラム</a>
+      <a href="#zodiac">12星座</a>
+      <a href="#about">サイトについて</a>
+    </nav>
+  </header>
+
+  <main class="container">
+
+    <!-- Hero -->
+    <section class="hero">
+      <h1>星のリズムで、日常を少しだけ読み解く。</h1>
+      <p>
+        西洋占星術をベースに、星座・ホロスコープ・トランジットなどをやさしく解説するコラムサイトです。
+        「当たる／当たらない」だけではなく、星を通して自分のパターンを見つめ直すヒントをお届けします。
+      </p>
+      <a href="#latest" class="btn">最新コラムを読む</a>
+    </section>
+
+    <!-- Latest -->
+    <section id="latest">
+      <h2>最新コラム</h2>
+      <ul class="post-list">
+        <li class="post-item">
+          <a href="#">
+            <div class="post-title">太陽星座だけじゃない？「月星座」が教えてくれる素の自分</div>
+            <div class="post-meta">2026-04-02 ｜ 基礎知識 / 月星座</div>
+          </a>
+        </li>
+        <li class="post-item">
+          <a href="#">
+            <div class="post-title">トランジット土星と向き合う：試される時期をどう過ごすか</div>
+            <div class="post-meta">2026-03-28 ｜ トランジット / 土星</div>
+          </a>
+        </li>
+        <li class="post-item">
+          <a href="#">
+            <div class="post-title">水星逆行の「せい」にしすぎないための3つの視点</div>
+            <div class="post-meta">2026-03-20 ｜ コラム / 水星逆行</div>
+          </a>
+        </li>
+      </ul>
+    </section>
+
+    <!-- Zodiac -->
+    <section id="zodiac">
+      <h2>12星座から読む</h2>
+      <div class="zodiac-grid">
+        <div class="zodiac-card">牡羊座 Aries</div>
+        <div class="zodiac-card">牡牛座 Taurus</div>
+        <div class="zodiac-card">双子座 Gemini</div>
+        <div class="zodiac-card">蟹座 Cancer</div>
+        <div class="zodiac-card">獅子座 Leo</div>
+        <div class="zodiac-card">乙女座 Virgo</div>
+        <div class="zodiac-card">天秤座 Libra</div>
+        <div class="zodiac-card">蠍座 Scorpio</div>
+        <div class="zodiac-card">射手座 Sagittarius</div>
+        <div class="zodiac-card">山羊座 Capricorn</div>
+        <div class="zodiac-card">水瓶座 Aquarius</div>
+        <div class="zodiac-card">魚座 Pisces</div>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section id="about">
+      <h2>このサイトについて</h2>
+      <p>
+        Stella Note（ステラノート）は、西洋占星術を「日常のメモ」のように使うための読み物サイトです。
+        難しい専門用語をできるだけかみ砕きつつ、星の象徴やサイクルをていねいに扱うことを大切にしています。
+      </p>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>© <span id="year"></span> Stella Note</p>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
