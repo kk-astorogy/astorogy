@@ -3,270 +3,415 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>蟹座太陽×月のサイン インフォグラフィック</title>
+    <title>蟹座太陽×月のサイン デザイン</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Kiwi+Maru:wght@400;500&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #fff9f5;
-            --primary-pink: #ffefef;
-            --accent-orange: #ffb38e;
-            --text-dark: #5a4a42;
-            --border-soft: #ffe0d0;
+            --canvas-width: 1080px;
+            --canvas-height: 1920px;
+            --m-top: 150px;
+            --m-bottom: 150px;
+            --m-side: 50px;
+            --text-main: #5a4a42;
+            --accent-blue: #5d93bc;
+            --accent-red: #ff7e67;
         }
 
         body {
-            background-color: #333; /* 背景は暗めにして動画制作時のプレビューを分かりやすく */
+            background-color: #222;
             margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            font-family: 'Kiwi Maru', serif;
-            color: var(--text-dark);
-        }
-
-        /* 1080x1920 のキャンバス */
-        .canvas {
-            width: 1080px;
-            height: 1920px;
-            background-color: var(--bg-color);
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 0 50px rgba(0,0,0,0.5);
-        }
-
-        /* 指定された余白エリア */
-        .content-area {
-            position: absolute;
-            top: 150px;
-            bottom: 150px;
-            left: 50px;
-            right: 50px;
             display: flex;
             flex-direction: column;
-            background: white;
-            border-radius: 60px;
-            padding: 40px;
-            border: 8px solid var(--border-soft);
+            align-items: center;
+            font-family: 'Kiwi Maru', serif;
+            color: var(--text-main);
         }
 
-        /* ふわふわした背景装飾 */
-        .decor-cloud {
+        .preview-container {
+            margin: 40px;
+            width: 432px;
+            height: 768px;
+            position: relative;
+            box-shadow: 0 40px 100px rgba(0,0,0,0.7);
+        }
+
+        #render-canvas {
+            width: var(--canvas-width);
+            height: var(--canvas-height);
+            background: #fff9f5;
             position: absolute;
+            top: 0;
+            left: 0;
+            transform: scale(0.4);
+            transform-origin: top left;
+            overflow: hidden;
+        }
+
+        #render-canvas.exporting {
+            transform: none !important;
+        }
+
+        .margin-guide {
+            position: absolute;
+            top: var(--m-top);
+            left: var(--m-side);
+            right: var(--m-side);
+            bottom: var(--m-bottom);
+            border: 2px dashed rgba(255, 0, 0, 0.2);
+            pointer-events: none;
+            z-index: 999;
+        }
+        #render-canvas.exporting .margin-guide {
+            display: none;
+        }
+
+        .bg-white-panel {
+            position: absolute;
+            top: 40px;
+            left: 30px;
+            right: 30px;
+            bottom: 40px;
+            border-radius: 100px;
             background: white;
-            border-radius: 50%;
-            filter: blur(40px);
-            opacity: 0.6;
-            z-index: 0;
+            border: 15px solid #ffefe5;
+            z-index: 1;
+        }
+
+        .content-frame {
+            position: absolute;
+            top: var(--m-top);
+            left: var(--m-side);
+            right: var(--m-side);
+            bottom: var(--m-bottom);
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            box-sizing: border-box;
         }
 
         .header {
             text-align: center;
-            margin-bottom: 40px;
-            position: relative;
+            margin-bottom: 25px;
+            flex-shrink: 0;
         }
 
-        .title-main {
-            font-size: 64px;
-            font-weight: 500;
-            color: #ff7e67;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 20px;
+        .main-title {
+            font-size: 82px;
+            color: var(--accent-blue);
+            font-weight: bold;
+            margin-bottom: 15px;
+            letter-spacing: 2px;
         }
 
-        .subtitle {
-            font-size: 32px;
-            background: #fff0e6;
-            padding: 10px 40px;
-            border-radius: 100px;
+        .sub-badge {
             display: inline-block;
+            background: #ffe8d6;
             color: #d88a75;
+            font-size: 34px;
+            padding: 10px 80px;
+            border-radius: 100px;
+            font-weight: 500;
         }
 
-        .description-box {
-            background: var(--primary-pink);
-            border-radius: 30px;
-            padding: 30px;
-            margin-bottom: 30px;
-            border: 3px dashed #ffc8c8;
+        .summary-box {
+            background: #ffefef;
+            border: 4px dashed #ffc8c8;
+            border-radius: 40px;
+            padding: 25px 40px;
+            font-size: 30px;
+            line-height: 1.4;
+            margin-bottom: 25px;
+            flex-shrink: 0;
         }
 
-        .desc-item {
-            font-size: 28px;
-            margin: 10px 0;
-            display: flex;
-            align-items: flex-start;
-        }
-
-        .desc-label {
-            font-weight: bold;
-            color: #ff6b6b;
-            min-width: 260px;
-        }
-
-        .table-container {
+        .list-area {
             flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
-        table {
-            width: 100%;
-            border-collapse: separate;
-            border-spacing: 0 15px;
+        .list-header {
+            display: grid;
+            grid-template-columns: 280px 1fr 340px;
+            font-size: 34px;
+            font-weight: bold;
+            color: #d88a75;
+            padding-bottom: 15px;
+            border-bottom: 5px solid #ffefe5;
+            text-align: center;
         }
 
-        th {
-            font-size: 32px;
-            padding: 20px;
-            color: #a67c52;
-            border-bottom: 2px solid var(--border-soft);
+        .list-row {
+            display: grid;
+            grid-template-columns: 280px 1fr 340px;
+            align-items: center;
+            padding: 6px 0;
+            border-bottom: 2px solid #fff5f0;
         }
 
-        tr {
-            transition: transform 0.2s;
-        }
-
-        td {
-            padding: 15px 10px;
-            background: #fff;
-            vertical-align: middle;
-            font-size: 28px;
-        }
-
-        .row-even td {
-            background: #fffcf9;
-        }
-
-        .sign-cell {
-            border-radius: 30px 0 0 30px;
+        .sign-info {
             display: flex;
             align-items: center;
-            gap: 15px;
-            padding-left: 20px;
+            gap: 20px;
             font-weight: bold;
+            font-size: 32px;
             color: #e67e22;
         }
 
-        .keyword-cell {
-            border-radius: 0 30px 30px 0;
-            color: #ff4757;
-            font-weight: bold;
-        }
-
-        .icon-circle {
-            width: 70px;
-            height: 70px;
-            background: #ffeaa7;
+        .sign-circle {
+            width: 75px;
+            height: 75px;
+            background: #fff5e6;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 40px;
+            font-size: 45px;
         }
 
-        /* 装飾用の蟹さん */
-        .crab-decor {
-            position: absolute;
-            top: -20px;
-            right: 0;
-            font-size: 80px;
-            animation: float 3s ease-in-out infinite;
+        .sign-text {
+            font-size: 27px;
+            padding: 0 15px;
         }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0) rotate(5deg); }
-            50% { transform: translateY(-20px) rotate(-5deg); }
+        .keyword-tag {
+            background: #fff;
+            border: 2px solid #fff5f0;
+            border-radius: 50px;
+            padding: 12px 5px;
+            text-align: center;
+            color: var(--accent-red);
+            font-weight: bold;
+            font-size: 28px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+        }
+
+        .footer {
+            text-align: center;
+            font-size: 34px;
+            color: #d88a75;
+            font-weight: bold;
+            margin-top: 25px;
+            flex-shrink: 0;
+        }
+
+        .illus-crab { position: absolute; top: 40px; right: 50px; font-size: 180px; z-index: 20; }
+        .illus-moon { position: absolute; top: 40px; left: 50px; font-size: 200px; z-index: 5; }
+
+        .controls {
+            position: fixed;
+            bottom: 30px;
+            background: white;
+            padding: 20px 40px;
+            border-radius: 100px;
+            display: flex;
+            gap: 20px;
+            box-shadow: 0 10px 50px rgba(0,0,0,0.5);
+            z-index: 1000;
+        }
+
+        .save-btn {
+            background: linear-gradient(135deg, #ff7e67, #ff5c42);
+            color: white;
+            padding: 12px 30px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .video-btn {
+            background: linear-gradient(135deg, #5d93bc, #3a6b8f);
+            color: white;
+            padding: 12px 30px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .floating { animation: float 4s ease-in-out infinite; }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
+
+        #recording-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8);
+            color: white;
+            z-index: 9999;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
         }
     </style>
 </head>
 <body>
 
-<div class="canvas">
-    <!-- 装飾背景 -->
-    <div class="decor-cloud" style="width: 400px; height: 400px; top: 100px; left: -100px;"></div>
-    <div class="decor-cloud" style="width: 500px; height: 500px; bottom: 200px; right: -150px;"></div>
+<div id="recording-overlay">
+    <div class="mb-4">🎬 YouTubeショート用動画を作成中...</div>
+    <div id="recording-status">15秒間のアニメーションを記録しています</div>
+    <div class="mt-4 text-sm opacity-70">※ブラウザを閉じないでください</div>
+</div>
 
-    <div class="content-area">
-        <div class="header">
-            <div class="crab-decor">🦀</div>
-            <h1 class="title-main">
-                <span style="font-size: 80px">🌙</span>
-                蟹座太陽 × 月のサイン
-            </h1>
-            <p class="subtitle">性格と恋愛キーワードをひと目でチェック</p>
-        </div>
+<div class="controls">
+    <div style="text-align: left; min-width: 150px;">
+        <div style="font-weight: bold; font-size: 14px; color: #ff7e67;">ショート動画対応版</div>
+        <div style="font-size: 11px; color: #666;">1080×1920 / 余白厳守</div>
+    </div>
+    <button class="save-btn" onclick="savePng()">画像保存 ✨</button>
+    <button class="video-btn" onclick="recordVideo()">動画作成 🎬</button>
+</div>
 
-        <div class="description-box">
-            <div class="desc-item">
-                <span class="desc-label">太陽蟹座の特徴：</span>
-                <span>感受性豊か・家庭的・守る愛・慎重に深く関わる</span>
+<div class="preview-container">
+    <div id="render-canvas">
+        <div class="margin-guide"></div>
+        <div class="bg-white-panel"></div>
+        
+        <div class="illus-crab floating">🦀</div>
+        <div class="illus-moon floating" style="animation-delay: -2s;">🌙</div>
+
+        <div class="content-frame">
+            <header class="header">
+                <h1 class="main-title">蟹座太陽×月のサイン</h1>
+                <div class="sub-badge">性格と恋愛キーワードをチェック</div>
+            </header>
+
+            <div class="summary-box">
+                <b>太陽蟹座：</b>感受性豊か・家庭的・守る愛・慎重に深く関わる<br>
+                <b>月サイン：</b>感情の土台や恋愛パターンの出方を補強・変化させる
             </div>
-            <div class="desc-item">
-                <span class="desc-label">月サインの特徴：</span>
-                <span>感情面や恋愛の出方を補強または変化させる</span>
-            </div>
-            <div style="text-align: center; margin-top: 15px; font-weight: bold; color: #ff9f43; font-size: 24px;">
-                💕 組み合わせで恋愛傾向を具体化 💕
-            </div>
-        </div>
 
-        <div class="table-container">
-            <table>
-                <thead>
-                    <tr>
-                        <th style="width: 25%;">月サイン</th>
-                        <th style="width: 35%;">一言</th>
-                        <th style="width: 40%;">恋愛キーワード</th>
-                    </tr>
-                </thead>
-                <tbody id="horoscope-table">
-                    <!-- JSで挿入 -->
-                </tbody>
-            </table>
-        </div>
+            <div class="list-area">
+                <div class="list-header">
+                    <div>月サイン</div>
+                    <div>一言コメント</div>
+                    <div>キーワード</div>
+                </div>
+                <div id="list-items" style="display: contents;"></div>
+            </div>
 
-        <div style="text-align: center; font-size: 24px; color: #ccc; margin-top: 20px;">
-            Save for later ✨
+            <footer class="footer">
+                〜 組み合わせで恋愛傾向を具体化 💕 〜
+            </footer>
         </div>
     </div>
 </div>
 
 <script>
     const data = [
-        { sign: "牡羊座", icon: "♈", desc: "感情豊かで情熱的", keyword: "守る・積極・熱烈" },
-        { sign: "牡牛座", icon: "♉", desc: "安定志向の愛情深さ", keyword: "安心・一途・居心地重視" },
-        { sign: "双子座", icon: "♊", desc: "柔軟で会話好き", keyword: "コミュ・柔らか・軽やか" },
-        { sign: "蟹座", icon: "♋", desc: "深く守る愛", keyword: "献身・安心・全力" },
-        { sign: "獅子座", icon: "♌", desc: "愛情表現豊か", keyword: "情熱・ドラマティック・華やか" },
-        { sign: "乙女座", icon: "♍", desc: "細やかで配慮型", keyword: "誠実・気配り・慎重" },
-        { sign: "天秤座", icon: "♎", desc: "調和を大事にする愛", keyword: "バランス・穏やか・柔らか" },
-        { sign: "蠍座", icon: "♏", desc: "深く情熱的", keyword: "濃密・一途・独占的" },
-        { sign: "射手座", icon: "♐", desc: "自由さと情熱のバランス", keyword: "自由・楽しい・守る" },
-        { sign: "山羊座", icon: "♑", desc: "計画的で堅実", keyword: "現実的・長期・安定" },
-        { sign: "水瓶座", icon: "♒", desc: "個性を尊重する愛", keyword: "自由・柔軟・対等" },
-        { sign: "魚座", icon: "♓", desc: "優しく共感的", keyword: "共感・献身・優しい" }
+        { name: "月牡羊座", emoji: "♈️", desc: "感情豊かで情熱的", kw: "守る・積極・熱烈" },
+        { name: "月牡牛座", emoji: "♉️", desc: "安定志向の愛情深さ", kw: "安心・一途・居心地" },
+        { name: "月双子座", emoji: "♊️", desc: "柔軟で会話好き", kw: "コミュ・柔らか・軽やか" },
+        { name: "月蟹座", emoji: "♋️", desc: "深く守る愛", kw: "献身・安心・全力" },
+        { name: "月獅子座", emoji: "♌️", desc: "愛情表現豊か", kw: "情熱・ドラマティック" },
+        { name: "月乙女座", emoji: "♍️", desc: "細やかで配慮型", kw: "誠実・気配り・慎重" },
+        { name: "月天秤座", emoji: "♎️", desc: "調和を大事にする愛", kw: "バランス・穏やか" },
+        { name: "月蠍座", emoji: "♏️", desc: "深く情熱的", kw: "濃密・一途・独占的" },
+        { name: "月射手座", emoji: "♐️", desc: "自由さと情熱のバランス", kw: "自由・楽しい・守る" },
+        { name: "月山羊座", emoji: "♑️", desc: "計画的で堅実", kw: "現実的・長期・安定" },
+        { name: "月水瓶座", emoji: "♒️", desc: "個性を尊重する愛", kw: "自由・柔軟・対等" },
+        { name: "月魚座", emoji: "♓️", desc: "優しく共感的", kw: "共感・献身・優しい" }
     ];
 
-    const tableBody = document.getElementById('horoscope-table');
-    
-    data.forEach((item, index) => {
-        const tr = document.createElement('tr');
-        if (index % 2 === 1) tr.className = 'row-even';
-        
-        tr.innerHTML = `
-            <td class="sign-cell">
-                <div class="icon-circle">${item.icon}</div>
-                ${item.sign}
-            </td>
-            <td style="font-size: 24px; line-height: 1.2;">${item.desc}</td>
-            <td class="keyword-cell">${item.keyword}</td>
+    const list = document.getElementById('list-items');
+    data.forEach(item => {
+        const row = document.createElement('div');
+        row.className = 'list-row';
+        row.innerHTML = `
+            <div class="sign-info">
+                <div class="sign-circle">${item.emoji}</div>
+                <span style="font-size: 30px">${item.name}</span>
+            </div>
+            <div class="sign-text">${item.desc}</div>
+            <div class="keyword-tag">${item.kw}</div>
         `;
-        tableBody.appendChild(tr);
+        list.appendChild(row);
     });
+
+    async function savePng() {
+        const canvas = document.getElementById('render-canvas');
+        canvas.classList.add('exporting');
+        await new Promise(r => setTimeout(r, 500));
+        const generatedCanvas = await html2canvas(canvas, { 
+            width: 1080, 
+            height: 1920, 
+            scale: 1,
+            backgroundColor: "#fff9f5"
+        });
+        const link = document.createElement('a');
+        link.download = `Cancer_Infographic.png`;
+        link.href = generatedCanvas.toDataURL("image/png");
+        link.click();
+        canvas.classList.remove('exporting');
+    }
+
+    async function recordVideo() {
+        const overlay = document.getElementById('recording-overlay');
+        const canvasElement = document.getElementById('render-canvas');
+        
+        overlay.style.display = 'flex';
+        canvasElement.classList.add('exporting');
+
+        try {
+            // ベースとなるキャプチャ用Canvasを作成
+            const streamCanvas = document.createElement('canvas');
+            streamCanvas.width = 1080;
+            streamCanvas.height = 1920;
+            const ctx = streamCanvas.getContext('2d');
+            
+            const stream = streamCanvas.captureStream(30); 
+            const recorder = new MediaRecorder(stream, { mimeType: 'video/webm;codecs=vp9' });
+            const chunks = [];
+
+            recorder.ondataavailable = e => chunks.push(e.data);
+            recorder.onstop = () => {
+                const blob = new Blob(chunks, { type: 'video/webm' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'astrology_shorts.webm';
+                a.click();
+                overlay.style.display = 'none';
+                canvasElement.classList.remove('exporting');
+            };
+
+            recorder.start();
+
+            const duration = 10000; // 10秒に短縮して処理を安定化
+            const startTime = Date.now();
+
+            const renderLoop = async () => {
+                const now = Date.now();
+                if (now - startTime < duration) {
+                    const tempCanvas = await html2canvas(canvasElement, { 
+                        width: 1080, 
+                        height: 1920, 
+                        scale: 1,
+                        backgroundColor: "#fff9f5"
+                    });
+                    ctx.clearRect(0, 0, 1080, 1920);
+                    ctx.drawImage(tempCanvas, 0, 0);
+                    requestAnimationFrame(renderLoop);
+                } else {
+                    recorder.stop();
+                }
+            };
+            renderLoop();
+
+        } catch (e) {
+            console.error(e);
+            alert("動画作成に失敗しました。画面収録機能をご利用ください。");
+            overlay.style.display = 'none';
+            canvasElement.classList.remove('exporting');
+        }
+    }
 </script>
 
 </body>
