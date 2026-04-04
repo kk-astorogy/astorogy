@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>蟹座太陽×月のサイン インフォグラフィック</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Kiwi+Maru:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #fff9f5;
+            --primary-pink: #ffefef;
+            --accent-orange: #ffb38e;
+            --text-dark: #5a4a42;
+            --border-soft: #ffe0d0;
+        }
+
+        body {
+            background-color: #333; /* 背景は暗めにして動画制作時のプレビューを分かりやすく */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: 'Kiwi Maru', serif;
+            color: var(--text-dark);
+        }
+
+        /* 1080x1920 のキャンバス */
+        .canvas {
+            width: 1080px;
+            height: 1920px;
+            background-color: var(--bg-color);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 50px rgba(0,0,0,0.5);
+        }
+
+        /* 指定された余白エリア */
+        .content-area {
+            position: absolute;
+            top: 150px;
+            bottom: 150px;
+            left: 50px;
+            right: 50px;
+            display: flex;
+            flex-direction: column;
+            background: white;
+            border-radius: 60px;
+            padding: 40px;
+            border: 8px solid var(--border-soft);
+        }
+
+        /* ふわふわした背景装飾 */
+        .decor-cloud {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            filter: blur(40px);
+            opacity: 0.6;
+            z-index: 0;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .title-main {
+            font-size: 64px;
+            font-weight: 500;
+            color: #ff7e67;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .subtitle {
+            font-size: 32px;
+            background: #fff0e6;
+            padding: 10px 40px;
+            border-radius: 100px;
+            display: inline-block;
+            color: #d88a75;
+        }
+
+        .description-box {
+            background: var(--primary-pink);
+            border-radius: 30px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border: 3px dashed #ffc8c8;
+        }
+
+        .desc-item {
+            font-size: 28px;
+            margin: 10px 0;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .desc-label {
+            font-weight: bold;
+            color: #ff6b6b;
+            min-width: 260px;
+        }
+
+        .table-container {
+            flex-grow: 1;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0 15px;
+        }
+
+        th {
+            font-size: 32px;
+            padding: 20px;
+            color: #a67c52;
+            border-bottom: 2px solid var(--border-soft);
+        }
+
+        tr {
+            transition: transform 0.2s;
+        }
+
+        td {
+            padding: 15px 10px;
+            background: #fff;
+            vertical-align: middle;
+            font-size: 28px;
+        }
+
+        .row-even td {
+            background: #fffcf9;
+        }
+
+        .sign-cell {
+            border-radius: 30px 0 0 30px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding-left: 20px;
+            font-weight: bold;
+            color: #e67e22;
+        }
+
+        .keyword-cell {
+            border-radius: 0 30px 30px 0;
+            color: #ff4757;
+            font-weight: bold;
+        }
+
+        .icon-circle {
+            width: 70px;
+            height: 70px;
+            background: #ffeaa7;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+        }
+
+        /* 装飾用の蟹さん */
+        .crab-decor {
+            position: absolute;
+            top: -20px;
+            right: 0;
+            font-size: 80px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(5deg); }
+            50% { transform: translateY(-20px) rotate(-5deg); }
+        }
+    </style>
+</head>
+<body>
+
+<div class="canvas">
+    <!-- 装飾背景 -->
+    <div class="decor-cloud" style="width: 400px; height: 400px; top: 100px; left: -100px;"></div>
+    <div class="decor-cloud" style="width: 500px; height: 500px; bottom: 200px; right: -150px;"></div>
+
+    <div class="content-area">
+        <div class="header">
+            <div class="crab-decor">🦀</div>
+            <h1 class="title-main">
+                <span style="font-size: 80px">🌙</span>
+                蟹座太陽 × 月のサイン
+            </h1>
+            <p class="subtitle">性格と恋愛キーワードをひと目でチェック</p>
+        </div>
+
+        <div class="description-box">
+            <div class="desc-item">
+                <span class="desc-label">太陽蟹座の特徴：</span>
+                <span>感受性豊か・家庭的・守る愛・慎重に深く関わる</span>
+            </div>
+            <div class="desc-item">
+                <span class="desc-label">月サインの特徴：</span>
+                <span>感情面や恋愛の出方を補強または変化させる</span>
+            </div>
+            <div style="text-align: center; margin-top: 15px; font-weight: bold; color: #ff9f43; font-size: 24px;">
+                💕 組み合わせで恋愛傾向を具体化 💕
+            </div>
+        </div>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 25%;">月サイン</th>
+                        <th style="width: 35%;">一言</th>
+                        <th style="width: 40%;">恋愛キーワード</th>
+                    </tr>
+                </thead>
+                <tbody id="horoscope-table">
+                    <!-- JSで挿入 -->
+                </tbody>
+            </table>
+        </div>
+
+        <div style="text-align: center; font-size: 24px; color: #ccc; margin-top: 20px;">
+            Save for later ✨
+        </div>
+    </div>
+</div>
+
+<script>
+    const data = [
+        { sign: "牡羊座", icon: "♈", desc: "感情豊かで情熱的", keyword: "守る・積極・熱烈" },
+        { sign: "牡牛座", icon: "♉", desc: "安定志向の愛情深さ", keyword: "安心・一途・居心地重視" },
+        { sign: "双子座", icon: "♊", desc: "柔軟で会話好き", keyword: "コミュ・柔らか・軽やか" },
+        { sign: "蟹座", icon: "♋", desc: "深く守る愛", keyword: "献身・安心・全力" },
+        { sign: "獅子座", icon: "♌", desc: "愛情表現豊か", keyword: "情熱・ドラマティック・華やか" },
+        { sign: "乙女座", icon: "♍", desc: "細やかで配慮型", keyword: "誠実・気配り・慎重" },
+        { sign: "天秤座", icon: "♎", desc: "調和を大事にする愛", keyword: "バランス・穏やか・柔らか" },
+        { sign: "蠍座", icon: "♏", desc: "深く情熱的", keyword: "濃密・一途・独占的" },
+        { sign: "射手座", icon: "♐", desc: "自由さと情熱のバランス", keyword: "自由・楽しい・守る" },
+        { sign: "山羊座", icon: "♑", desc: "計画的で堅実", keyword: "現実的・長期・安定" },
+        { sign: "水瓶座", icon: "♒", desc: "個性を尊重する愛", keyword: "自由・柔軟・対等" },
+        { sign: "魚座", icon: "♓", desc: "優しく共感的", keyword: "共感・献身・優しい" }
+    ];
+
+    const tableBody = document.getElementById('horoscope-table');
+    
+    data.forEach((item, index) => {
+        const tr = document.createElement('tr');
+        if (index % 2 === 1) tr.className = 'row-even';
+        
+        tr.innerHTML = `
+            <td class="sign-cell">
+                <div class="icon-circle">${item.icon}</div>
+                ${item.sign}
+            </td>
+            <td style="font-size: 24px; line-height: 1.2;">${item.desc}</td>
+            <td class="keyword-cell">${item.keyword}</td>
+        `;
+        tableBody.appendChild(tr);
+    });
+</script>
+
+</body>
+</html>
